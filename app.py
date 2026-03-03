@@ -19,6 +19,10 @@ def projects():
 def about():
 	return render_template("pages/about.html")
 
+@app.route('/admin')
+def admin():
+	return render_template("pages/admin.html")
+
 @app.errorhandler(404)
 def error_not_found(error):
 	return f"<h1>Страница не найдена! Илья смотри свой код!</h1> {error}", 404
