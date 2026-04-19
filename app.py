@@ -2,12 +2,12 @@ from werkzeug.utils import secure_filename
 from flask import Flask, render_template, request, flash, redirect, url_for
 from func import check_file, del_file
 from db import *
-import os
 
 app = Flask(__name__, template_folder="templates")
 app.debug = True
 db = DataBase()
-app.config['SECRET_KEY']='ghj'
+
+app.config['SECRET_KEY'] = 'ghj'
 app.config['UPLOAD_FOLDER'] = 'static/images/'  # папка картинок
 
 @app.route('/')
@@ -47,7 +47,7 @@ def adminproject():
 			)
 			
 	projects = db.select_all()
-	return render_template("pages/admin_project.html",projects=projects)
+	return render_template("pages/admin_project.html", projects=projects)
 
 @app.route('/admin')
 def admin():
@@ -57,7 +57,7 @@ def admin():
 def error_not_found(error):
 	return f"<h1>Страница не найдена! Илья смотри свой код!</h1> {error}", 404
 
-@app.route("/admin/add_project", methods=['GET','POST'])
+@app.route("/admin/add_project", methods=['GET', 'POST'])
 def admin_add():
 	if request.method == "POST":
 		for key in request.form:
@@ -68,7 +68,7 @@ def admin_add():
 			file = request.files['file']
 			if file and check_file(file.filename):
 				filename = secure_filename(file.filename)
-				print(filename,flush=True)
+				print(filename, flush=True)
 				file.save(f'static/images/{filename}')
 				db.create_project(
 					request.form['title'],
@@ -76,7 +76,7 @@ def admin_add():
 					filename,
 					request.form['link']
 				)
-				flash(['Проект добавлен!','green'])
+				flash(['Проект добавлен!', 'green'])
 	return render_template('admin/add_project.html')			
 
 if __name__ == "__main__":
