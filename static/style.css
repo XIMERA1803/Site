@@ -13,10 +13,16 @@ body {
 	background: url(../static/images/q.jpeg);
 	background-size: 20%;
 	background-repeat: repeat;
+	font-size: 22px;
+
 }
 
 a {
 	text-decoration: none;
+}
+
+input {
+	font-size: 20px;
 }
 /* коммент */
 .header {
@@ -217,3 +223,110 @@ h2{
 	text-align: center;
 }
 
+
+
+.form ul {
+	list-style: none;          
+	padding: 0;                
+	margin: 0;    
+	padding: 10px;             
+}
+
+.form li {
+	margin-bottom: 2vw; 
+	padding: 10px; 
+}
+
+
+.form label {
+	display: block;            
+	margin-bottom: 0.5vw;      
+	color: #0c44b6;            
+	font-size: 1rem; 
+}
+
+
+.form input,
+.form textarea {
+
+	width: 90%;               
+	padding: 0.8vw 1vw;        
+	border: 2px solid #0c44b6; 
+	border-radius: 6px;        
+	font-size: 1rem;          
+	font-family: 'Chivo Mono', monospace; 
+	outline: none;  
+
+}
+
+
+.form input:focus,
+.form textarea:focus {
+	border-color: #003399;   
+	padding: 10px; 
+
+}
+
+
+.form textarea {
+	min-height: 6em;          
+	resize: vertical;          
+}
+
+.form button {
+	padding: 1vw 2vw;          
+	font-size: 1rem;           
+	color: white;             
+	background: #0c44b6;       
+	border: none;             
+	border-radius: 8px;        
+	cursor: pointer;           
+	font-family: inherit;
+	padding: 10px;     
+	min-height: 20px;
+	min-width: ; 10px;
+}
+
+
+.form button:hover {
+	padding: 10px;
+	background: #003399;
+	min-height: 20px;
+	min-width: ; 10px;       
+}
+
+
+.alert {
+	margin: 1vw 0;            
+	padding: 0.8vw 1.2vw;      
+	border-radius: 6px;        
+	font-size: 1rem;           
+}
+
+.aidar_error {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;  
+  align-items: left;
+  gap: 200px;  
+  width: 100%;  
+  padding-bottom: 25px;
+  margin: 10px;
+}
+
+.aidar_error form {
+	display: grid;
+	grid-template-columns: 0.2fr 1fr 1fr 1fr 1fr 0.2fr 0.2fr; 
+	grid-gap: 5px;
+	grid-auto-rows: minmax(50px, auto);
+}
+
+.aidar_error button {
+	min-width: 50px;
+	min-height: 50px;
+	font-size: 25px;
+}
+.id{
+	max-width: 50px;
+	max-height: 50px;
+}

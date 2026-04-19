@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Projects</title>
+{% endblock %}
+
+{% block main %}
+<div class="main">
+    <div class="projects-page-content">
+        <span><a href="/admin/add_project">Добавить товар</a></span>
+        <span><a type="submit" name="action">Выйти</a></span>
+    </div>
+</div>
+<div class="main">
+    <div class="projects-page-content">
+        {% if projects %}
+            {% for p in projects %}
+            <div class="aidar_error">             
+                <form action="/admin_project" method="POST" enctype="multipart/form-data">
+                    <input class = "id" type="number" name="id" readonly value="{{ p[0] }}">
+                    <div>
+                        <label>Название:</label>
+                        <input type="text" name="title" value="{{ p[1] }}">
+                    </div>
+                    <div>
+                        <label>Описание:</label>
+                        <input type="text" name="description" value="{{ p[2] }}">
+                    </div>
+                    <div>
+                        <label>Cсылка:</label>
+                        <input type="text" name="url" value="{{ p[4] }}">
+                    </div>
+                    <div>
+                        <label>Картинка:</label>
+                        <input type="file" name="image" >
+                    </div>
+                    <div>
+                        <button type="submit" name="action" value="update">✏</button>
+                    </div>
+                    <div>
+                        <button type="submit" name="action" value="delete">🗑</button>
+                    </div>
+                </form>
+            </div>
+            {% endfor %}
+        {% else %}
+            <h2>Нет проектов</h2>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

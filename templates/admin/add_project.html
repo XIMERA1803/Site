@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block head %}
+	<title>Main page</title>
+{% endblock %}
+
+{% block main %}
+<div class="main">
+    <div class="projects-page-content">
+        <span><a href="/admin_project">CHANGE</a></span>
+        <span><a type="submit" name="action">Выйти</a></span>
+    </div>
+</div>
+	<div class="main">
+		{% for alert in get_flashed_messages() %}
+			<div class="alert" style="background-color: {{alert[1]}};">
+				{{alert[0]}}
+			</div>
+		{% endfor %}
+		<div class="form">
+			<form action="/admin/add_project" method="POST" enctype="multipart/form-data">
+				<ul class="form-list">
+					<li>
+						<label>Название:</label>
+						<input type="text" name="title" class="form-input">
+					</li>
+					<li>
+						<label>Ссылка:</label>
+						<input type="text" name="link" class="form-input">
+					</li>
+					<li>
+						<label>Описание:</label>
+						<textarea name="description" class="form-textarea"></textarea>
+					</li>
+					<li>
+						<label>Картинка:</label>
+						<input type="file" name="file" class="form-file">
+					</li>
+					<li class="form-submit-wrapper">
+						<button type="submit" class="form-btn">Отправить</button>
+					</li>
+				</ul>
+			</form>
+		</div>
+	</div>
+{% endblock %}
