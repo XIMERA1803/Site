@@ -1,7 +1,12 @@
 from werkzeug.utils import secure_filename
-from flask import Flask, render_template, request, flash, redirect, url_for
+from flask import Flask, render_template, request, flash, redirect, url_for, jsonify
 from func import check_file, del_file
 from db import *
+from functools import wraps
+from flask_login import (LoginManager, login_user, logout_user, 
+	login_required, current_user)
+from user import *
+from forms import LoginForm
 
 app = Flask(__name__, template_folder="templates")
 app.debug = True
@@ -9,6 +14,14 @@ db = DataBase()
 
 app.config['SECRET_KEY'] = 'ghj'
 app.config['UPLOAD_FOLDER'] = 'static/images/'  # папка картинок
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = "login"
+
+@login_manager.user_loader
+def load_user(username):
+	return User.get(username)
 
 @app.route('/')
 def index():
@@ -18,6 +31,19 @@ def index():
 def projects():
 	all_projects = db.select_all()
 	return render_template("pages/projects.html", projects=all_projects)
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+	if current_user.is_authenticated:
+		return redirect(url_for('adminproject'))
+	form = LoginForm()
+	if form.validate_on_submit():
+		user = User.authenticate(form.username.data, form.password.data)
+		if user :
+			login_user(user)
+			return redirect(url_for('adminproject'))
+		flash(['неверный логин или пароль', 'red'])
+	return render_template("pages/login.html",form=form)
 
 @app.route('/about')
 def about():

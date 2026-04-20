@@ -21,3 +21,10 @@ class User(UserMixin):
 		else:
 			return None
 
+	@staticmethod
+	def authenticate(username, password):
+		user_data = user_db.get_user_by_username(username)
+		if user_data and check_password_hash(user_data[2], password,):
+			return User(username)
+		else:
+			return None

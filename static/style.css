@@ -330,3 +330,11 @@ h2{
 	max-width: 50px;
 	max-height: 50px;
 }
+
+.main{
+	text-align: center;
+	padding: 10px ;
+}
+.btn_login{
+	color: red;
+}
