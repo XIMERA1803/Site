@@ -28,3 +28,4 @@ class User(UserMixin):
 			return User(username)
 		else:
 			return None
+		

@@ -7,8 +7,8 @@
 {% block main %}
 <div class="main">
     <div class="projects-page-content">
-        <span><a href="/admin_project">CHANGE</a></span>
-        <span><a type="submit" name="action">Выйти</a></span>
+        <span><a href="{{ url_for('admin_project') }}">CHANGE</a></span>
+        <a href="{{ url_for('logout') }}">Выйти</a>
     </div>
 </div>
 	<div class="main">

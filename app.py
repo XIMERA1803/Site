@@ -51,59 +51,70 @@ def about():
 
 @app.route('/admin_project', methods=['GET','POST'])
 def adminproject():
-	if request.method == "POST":
-		if request.form.get("action") == 'delete':
-			del_file(db.get_photo_id(request.form['id']))
-			db.delete_project(request.form['id'])
-		elif request.form.get("action") == 'update':
-			if not request.files['image']:
-				filename = db.get_photo_id(request.form['id'])
-			else:
-				file = request.files['image']
+	if current_user.is_authenticated:
+		if request.method == "POST":
+			if request.form.get("action") == 'delete':
 				del_file(db.get_photo_id(request.form['id']))
-				if check_file(file.filename):
-					filename = secure_filename(file.filename)
-					file.save(f'static/images/{filename}')
-			db.change_project(
-				request.form['id'],
-				request.form['title'],
-				request.form['description'],
-				filename,
-				request.form['url']
-			)
-			
-	projects = db.select_all()
-	return render_template("pages/admin_project.html", projects=projects)
+				db.delete_project(request.form['id'])
+			elif request.form.get("action") == 'update':
+				if not request.files['image']:
+					filename = db.get_photo_id(request.form['id'])
+				else:
+					file = request.files['image']
+					del_file(db.get_photo_id(request.form['id']))
+					if check_file(file.filename):
+						filename = secure_filename(file.filename)
+						file.save(f'static/images/{filename}')
+				db.change_project(
+					request.form['id'],
+					request.form['title'],
+					request.form['description'],
+					filename,
+					request.form['url']
+				)
+				
+		projects = db.select_all()
+		return render_template("pages/admin_project.html", projects=projects)
+	return redirect(url_for('about'))
 
 @app.route('/admin')
 def admin():
-	return render_template("pages/admin.html")
-
+	if current_user.is_authenticated:
+		return render_template("pages/admin.html")
+	return redirect(url_for('about'))
 @app.errorhandler(404)
 def error_not_found(error):
 	return f"<h1>Страница не найдена! Илья смотри свой код!</h1> {error}", 404
 
 @app.route("/admin/add_project", methods=['GET', 'POST'])
 def admin_add():
-	if request.method == "POST":
-		for key in request.form:
-			if request.form[key] == "":
-				flash(["не все поля заполнены!", ["red"]])
-				return render_template("admin/add_project.html")
-		else:
-			file = request.files['file']
-			if file and check_file(file.filename):
-				filename = secure_filename(file.filename)
-				print(filename, flush=True)
-				file.save(f'static/images/{filename}')
-				db.create_project(
-					request.form['title'],
-					request.form['description'],
-					filename,
-					request.form['link']
-				)
-				flash(['Проект добавлен!', 'green'])
-	return render_template('admin/add_project.html')			
+	if current_user.is_authenticated:
+		if request.method == "POST":
+			for key in request.form:
+				if request.form[key] == "":
+					flash(["не все поля заполнены!", ["red"]])
+					return render_template("admin/add_project.html")
+			else:
+				file = request.files['file']
+				if file and check_file(file.filename):
+					filename = secure_filename(file.filename)
+					print(filename, flush=True)
+					file.save(f'static/images/{filename}')
+					db.create_project(
+						request.form['title'],
+						request.form['description'],
+						filename,
+						request.form['link']
+					)
+					flash(['Проект добавлен!', 'green'])
+		return render_template('admin/add_project.html')			
+	return redirect(url_for('about'))
+
+@app.route("/logout")
+@login_required
+def logout():
+	logout_user()
+	return redirect(url_for('about'))
 
 if __name__ == "__main__":
 	app.run()

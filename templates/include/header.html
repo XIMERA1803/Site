@@ -2,14 +2,14 @@
 	<span><a href="/">XIMERA</a></span>
 	<ul>
 		<li>
-			<a href="about">About</a>
+			<a href="{{ url_for('about') }}">About</a>
 		</li>
 		<li>
-			<a href="projects">My projects</a>
+			<a href="{{ url_for('projects') }}">My projects</a>
 		</li>
 		<li>
-			<a href="reviews">Reviews</a>
+			<a href="{{ url_for('reviews') }}">Reviews</a>
 		</li>
 	</ul>
-	<span><a href="contact">CONTACT US</a></span>
+	<span><a href="{{ url_for('contact') }}">CONTACT US</a></span>
 </div>
