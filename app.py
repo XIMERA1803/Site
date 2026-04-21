@@ -1,19 +1,22 @@
 from werkzeug.utils import secure_filename
-from flask import Flask, render_template, request, flash, redirect, url_for, jsonify
-from func import check_file, del_file
-from db import *
 from functools import wraps
+
+from flask import Flask, render_template, request, flash, redirect, url_for
 from flask_login import (LoginManager, login_user, logout_user, 
 	login_required, current_user)
-from user import *
-from forms import LoginForm
 
-app = Flask(__name__, template_folder="templates")
-app.debug = True
+from user import *
+from func import check_file, del_file
+from db import *
+from forms import LoginForm
+from config import *
+
+app = Flask(__name__, template_folder=template_folder)
+app.debug = False
 db = DataBase()
 
-app.config['SECRET_KEY'] = 'ghj'
-app.config['UPLOAD_FOLDER'] = 'static/images/'  # папка картинок
+app.config['SECRET_KEY'] = SECRET_KEY
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -49,6 +52,14 @@ def login():
 def about():
 	return render_template("pages/about.html")
 
+@app.route('/reviews')
+def reviews():
+	return render_template("pages/about.html")
+
+@app.route('/contact')
+def contact():
+	return render_template("pages/contacts.html")
+
 @app.route('/admin_project', methods=['GET','POST'])
 def adminproject():
 	if current_user.is_authenticated:
@@ -82,6 +93,7 @@ def admin():
 	if current_user.is_authenticated:
 		return render_template("pages/admin.html")
 	return redirect(url_for('about'))
+
 @app.errorhandler(404)
 def error_not_found(error):
 	return f"<h1>Страница не найдена! Илья смотри свой код!</h1> {error}", 404

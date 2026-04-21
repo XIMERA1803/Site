@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block head %}
-    <title>Илья не локс</title> 
+  <title>Илья не локс</title> 
 {% endblock %}
 {% block main %}
   <div class="main">
@@ -10,14 +10,11 @@
             {{ alert[0] }}
         </div>
         {% endfor %}
-
         <form method="POST">
           {{ form.hidden_tag() }}
           <p>{{ form.username.label }}<br>{{ form.username() }}</p>
           <p>{{ form.password.label }}<br>{{ form.password() }}</p>
           {{ form.submit(class_="btn_login") }}
         </form>
-
-
   </div>
 {% endblock %}

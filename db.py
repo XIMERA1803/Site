@@ -40,6 +40,7 @@ class DataBase:
         ).fetchall()
         return select_photo[0][0]
 
+
 class UserDB:
     def __init__(self, path="db.db"):
         self.conn = sqlite3.connect(path, check_same_thread=False)
@@ -52,8 +53,3 @@ class UserDB:
 
         return res
 
-#db = DataBase()
-#db.change_project(9, 'fgh', 'sdcfg', 'png', 'жаба')
-#print(db.get_photo_id(12))
-# d = UserDB()
-# print(d.get_user_by_username("1"))
