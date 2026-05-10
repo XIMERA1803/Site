@@ -1,0 +1,12 @@
+dotenv==0.9.9
+Flask==3.1.2
+Flask-Login==0.6.3
+Flask-WTF==1.2.2
+Jinja2==3.1.6
+requests==2.33.1
+urllib3==2.6.3
+Werkzeug==3.1.5
+wtf==0.1
+WTForms==3.2.1
+yarg==0.1.10
+yarl==1.22.0

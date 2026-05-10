@@ -54,11 +54,12 @@ def about():
 
 @app.route('/reviews')
 def reviews():
-	return render_template("pages/about.html")
+	return render_template("pages/reviews.html")
 
 @app.route('/contact')
 def contact():
-	return render_template("pages/contacts.html")
+
+	return render_template("pages/contact.html")
 
 @app.route('/admin_project', methods=['GET','POST'])
 def adminproject():

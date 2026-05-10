@@ -1,5 +1,5 @@
 import sqlite3
-
+             
 class DataBase:
     def __init__(self, path="db.db"):
         self.conn = sqlite3.connect(path, check_same_thread=False)
